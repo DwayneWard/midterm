@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'edit' %}Редактировать заметку{% else %}Добавить заметку{% endif %} - Заметки</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <h1>{% if action == 'edit' %}Редактировать заметку{% else %}Добавить заметку{% endif %}</h1>
+        
+        <form method="post" action="{% if action == 'edit' %}/notes/{{ note.id }}/edit{% else %}/notes/add{% endif %}" class="note-form">
+            <div class="form-group">
+                <label for="title">Заголовок:</label>
+                <input type="text" id="title" name="title" value="{% if note %}{{ note.title }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Содержание:</label>
+                <textarea id="content" name="content" rows="10" required>{% if note %}{{ note.content }}{% endif %}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="tags">Теги (через запятую):</label>
+                <input type="text" id="tags" name="tags" value="{% if note and note.tags %}{{ note.tags }}{% endif %}" placeholder="важное, работа, идеи">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="is_pinned" {% if note and note.is_pinned %}checked{% endif %}>
+                    Закрепить заметку
+                </label>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{% if action == 'edit' %}Сохранить{% else %}Добавить{% endif %}</button>
+                <a href="/" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

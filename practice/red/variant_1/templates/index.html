@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Библиотека книг</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Библиотека книг</h1>
+        <a href="/books/add" class="btn btn-primary">Добавить книгу</a>
+        
+        <div class="books-list">
+            {% if books %}
+                {% for book in books %}
+                <div class="book-card">
+                    <h2>{{ book.title }}</h2>
+                    <p class="author">Автор: {{ book.author }}</p>
+                    <p class="year">Год: {{ book.year }}</p>
+                    {% if book.description %}
+                    <p class="description">{{ book.description }}</p>
+                    {% endif %}
+                    <div class="actions">
+                        <a href="/books/{{ book.id }}" class="btn btn-secondary">Подробнее</a>
+                        <a href="/books/{{ book.id }}/edit" class="btn btn-warning">Редактировать</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Книг пока нет. Добавьте первую книгу!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

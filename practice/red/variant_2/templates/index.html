@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Список задач</h1>
+        <a href="/tasks/add" class="btn btn-primary">Добавить задачу</a>
+        
+        <div class="tasks-list">
+            {% if tasks %}
+                {% for task in tasks %}
+                <div class="task-card {% if task.completed %}completed{% endif %}">
+                    <h2>{{ task.title }}</h2>
+                    {% if task.description %}
+                    <p class="description">{{ task.description }}</p>
+                    {% endif %}
+                    <p class="priority priority-{{ task.priority }}">Приоритет: {{ task.priority }}</p>
+                    <p class="status">{% if task.completed %}✓ Выполнено{% else %}○ В работе{% endif %}</p>
+                    <div class="actions">
+                        <a href="/tasks/{{ task.id }}" class="btn btn-secondary">Подробнее</a>
+                        <a href="/tasks/{{ task.id }}/edit" class="btn btn-warning">Редактировать</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Задач пока нет. Добавьте первую задачу!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

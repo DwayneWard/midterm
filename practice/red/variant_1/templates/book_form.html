@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'edit' %}Редактировать книгу{% else %}Добавить книгу{% endif %} - Библиотека книг</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <h1>{% if action == 'edit' %}Редактировать книгу{% else %}Добавить книгу{% endif %}</h1>
+        
+        <form method="post" action="{% if action == 'edit' %}/books/{{ book.id }}/edit{% else %}/books/add{% endif %}" class="book-form">
+            <div class="form-group">
+                <label for="title">Название:</label>
+                <input type="text" id="title" name="title" value="{% if book %}{{ book.title }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="author">Автор:</label>
+                <input type="text" id="author" name="author" value="{% if book %}{{ book.author }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="year">Год издания:</label>
+                <input type="number" id="year" name="year" value="{% if book %}{{ book.year }}{% endif %}" min="1000" max="2100" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" rows="5">{% if book and book.description %}{{ book.description }}{% endif %}</textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{% if action == 'edit' %}Сохранить{% else %}Добавить{% endif %}</button>
+                <a href="/" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

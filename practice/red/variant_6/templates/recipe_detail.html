@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }} - Кулинарная книга</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <div class="recipe-detail">
+            <h1>{{ recipe.name }}</h1>
+            {% if recipe.description %}
+            <p class="description">{{ recipe.description }}</p>
+            {% endif %}
+            <p class="ingredients"><strong>Ингредиенты:</strong> {{ recipe.ingredients }}</p>
+            <p class="cooking-time">⏱ Время приготовления: {{ recipe.cooking_time }} минут</p>
+            <p class="difficulty">Сложность: {{ recipe.difficulty }}</p>
+            
+            <div class="actions">
+                <a href="/recipes/{{ recipe.id }}/edit" class="btn btn-warning">Редактировать</a>
+                <form action="/recipes/{{ recipe.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот рецепт?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

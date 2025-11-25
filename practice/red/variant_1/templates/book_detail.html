@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }} - Библиотека книг</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <div class="book-detail">
+            <h1>{{ book.title }}</h1>
+            <p class="author">Автор: {{ book.author }}</p>
+            <p class="year">Год издания: {{ book.year }}</p>
+            {% if book.description %}
+            <p class="description">{{ book.description }}</p>
+            {% endif %}
+            
+            <div class="actions">
+                <a href="/books/{{ book.id }}/edit" class="btn btn-warning">Редактировать</a>
+                <form action="/books/{{ book.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту книгу?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'edit' %}Редактировать продукт{% else %}Добавить продукт{% endif %} - Каталог продуктов</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <h1>{% if action == 'edit' %}Редактировать продукт{% else %}Добавить продукт{% endif %}</h1>
+        
+        <form method="post" action="{% if action == 'edit' %}/products/{{ product.id }}/edit{% else %}/products/add{% endif %}" class="product-form">
+            <div class="form-group">
+                <label for="name">Название:</label>
+                <input type="text" id="name" name="name" value="{% if product %}{{ product.name }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" rows="5">{% if product and product.description %}{{ product.description }}{% endif %}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="price">Цена:</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" value="{% if product %}{{ product.price }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="stock">Остаток на складе:</label>
+                <input type="number" id="stock" name="stock" min="0" value="{% if product %}{{ product.stock }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Категория:</label>
+                <select id="category" name="category" required>
+                    <option value="electronics" {% if product and product.category == 'electronics' %}selected{% endif %}>Электроника</option>
+                    <option value="clothing" {% if product and product.category == 'clothing' %}selected{% endif %}>Одежда</option>
+                    <option value="food" {% if product and product.category == 'food' %}selected{% endif %}>Еда</option>
+                    <option value="other" {% if product and product.category == 'other' %}selected{% endif %}>Другое</option>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{% if action == 'edit' %}Сохранить{% else %}Добавить{% endif %}</button>
+                <a href="/" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'edit' %}Редактировать событие{% else %}Добавить событие{% endif %} - Календарь событий</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <h1>{% if action == 'edit' %}Редактировать событие{% else %}Добавить событие{% endif %}</h1>
+        
+        <form method="post" action="{% if action == 'edit' %}/events/{{ event.id }}/edit{% else %}/events/add{% endif %}" class="event-form">
+            <div class="form-group">
+                <label for="title">Название:</label>
+                <input type="text" id="title" name="title" value="{% if event %}{{ event.title }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" rows="5">{% if event and event.description %}{{ event.description }}{% endif %}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="event_date">Дата события:</label>
+                <input type="date" id="event_date" name="event_date" value="{% if event %}{{ event.event_date }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Место:</label>
+                <input type="text" id="location" name="location" value="{% if event %}{{ event.location }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Категория:</label>
+                <select id="category" name="category" required>
+                    <option value="work" {% if event and event.category == 'work' %}selected{% endif %}>Работа</option>
+                    <option value="personal" {% if event and event.category == 'personal' %}selected{% endif %}>Личное</option>
+                    <option value="other" {% if event and event.category == 'other' %}selected{% endif %}>Другое</option>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{% if action == 'edit' %}Сохранить{% else %}Добавить{% endif %}</button>
+                <a href="/" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

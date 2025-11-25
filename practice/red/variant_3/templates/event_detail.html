@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.title }} - Календарь событий</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <div class="event-detail">
+            <h1>{{ event.title }}</h1>
+            {% if event.description %}
+            <p class="description">{{ event.description }}</p>
+            {% endif %}
+            <p class="date">Дата: {{ event.event_date }}</p>
+            <p class="location">Место: {{ event.location }}</p>
+            <p class="category">Категория: {{ event.category }}</p>
+            
+            <div class="actions">
+                <a href="/events/{{ event.id }}/edit" class="btn btn-warning">Редактировать</a>
+                <form action="/events/{{ event.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить это событие?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

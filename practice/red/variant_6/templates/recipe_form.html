@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'edit' %}Редактировать рецепт{% else %}Добавить рецепт{% endif %} - Кулинарная книга</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <h1>{% if action == 'edit' %}Редактировать рецепт{% else %}Добавить рецепт{% endif %}</h1>
+        
+        <form method="post" action="{% if action == 'edit' %}/recipes/{{ recipe.id }}/edit{% else %}/recipes/add{% endif %}" class="recipe-form">
+            <div class="form-group">
+                <label for="name">Название рецепта:</label>
+                <input type="text" id="name" name="name" value="{% if recipe %}{{ recipe.name }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" rows="3">{% if recipe and recipe.description %}{{ recipe.description }}{% endif %}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="ingredients">Ингредиенты (через запятую):</label>
+                <textarea id="ingredients" name="ingredients" rows="5" required>{% if recipe %}{{ recipe.ingredients }}{% endif %}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="cooking_time">Время приготовления (минуты):</label>
+                <input type="number" id="cooking_time" name="cooking_time" min="1" value="{% if recipe %}{{ recipe.cooking_time }}{% endif %}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="difficulty">Сложность:</label>
+                <select id="difficulty" name="difficulty" required>
+                    <option value="easy" {% if recipe and recipe.difficulty == 'easy' %}selected{% endif %}>Легко</option>
+                    <option value="medium" {% if recipe and recipe.difficulty == 'medium' %}selected{% endif %}>Средне</option>
+                    <option value="hard" {% if recipe and recipe.difficulty == 'hard' %}selected{% endif %}>Сложно</option>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{% if action == 'edit' %}Сохранить{% else %}Добавить{% endif %}</button>
+                <a href="/" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

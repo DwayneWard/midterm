@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заметки</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Мои заметки</h1>
+        <a href="/notes/add" class="btn btn-primary">Добавить заметку</a>
+        
+        <div class="notes-list">
+            {% if notes %}
+                {% for note in notes %}
+                <div class="note-card {% if note.is_pinned %}pinned{% endif %}">
+                    <h2>{% if note.is_pinned %}📌 {% endif %}{{ note.title }}</h2>
+                    <p class="content">{{ note.content[:100] }}{% if note.content|length > 100 %}...{% endif %}</p>
+                    {% if note.tags %}
+                    <p class="tags">Теги: {{ note.tags }}</p>
+                    {% endif %}
+                    <div class="actions">
+                        <a href="/notes/{{ note.id }}" class="btn btn-secondary">Подробнее</a>
+                        <a href="/notes/{{ note.id }}/edit" class="btn btn-warning">Редактировать</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Заметок пока нет. Добавьте первую заметку!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

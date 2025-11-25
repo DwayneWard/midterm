@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кулинарная книга</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Кулинарная книга</h1>
+        <a href="/recipes/add" class="btn btn-primary">Добавить рецепт</a>
+        
+        <div class="recipes-list">
+            {% if recipes %}
+                {% for recipe in recipes %}
+                <div class="recipe-card difficulty-{{ recipe.difficulty }}">
+                    <h2>{{ recipe.name }}</h2>
+                    {% if recipe.description %}
+                    <p class="description">{{ recipe.description }}</p>
+                    {% endif %}
+                    <p class="ingredients">Ингредиенты: {{ recipe.ingredients[:100] }}{% if recipe.ingredients|length > 100 %}...{% endif %}</p>
+                    <p class="cooking-time">⏱ Время приготовления: {{ recipe.cooking_time }} мин.</p>
+                    <p class="difficulty">Сложность: {{ recipe.difficulty }}</p>
+                    <div class="actions">
+                        <a href="/recipes/{{ recipe.id }}" class="btn btn-secondary">Подробнее</a>
+                        <a href="/recipes/{{ recipe.id }}/edit" class="btn btn-warning">Редактировать</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Рецептов пока нет. Добавьте первый рецепт!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

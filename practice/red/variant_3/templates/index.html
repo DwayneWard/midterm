@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь событий</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Календарь событий</h1>
+        <a href="/events/add" class="btn btn-primary">Добавить событие</a>
+        
+        <div class="events-list">
+            {% if events %}
+                {% for event in events %}
+                <div class="event-card category-{{ event.category }}">
+                    <h2>{{ event.title }}</h2>
+                    {% if event.description %}
+                    <p class="description">{{ event.description }}</p>
+                    {% endif %}
+                    <p class="date">Дата: {{ event.event_date }}</p>
+                    <p class="location">Место: {{ event.location }}</p>
+                    <p class="category">Категория: {{ event.category }}</p>
+                    <div class="actions">
+                        <a href="/events/{{ event.id }}" class="btn btn-secondary">Подробнее</a>
+                        <a href="/events/{{ event.id }}/edit" class="btn btn-warning">Редактировать</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Событий пока нет. Добавьте первое событие!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Каталог продуктов</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <div class="product-detail">
+            <h1>{{ product.name }}</h1>
+            {% if product.description %}
+            <p class="description">{{ product.description }}</p>
+            {% endif %}
+            <p class="price">Цена: {{ "%.2f"|format(product.price) }} ₽</p>
+            <p class="stock">Остаток на складе: {{ product.stock }} шт.</p>
+            <p class="category">Категория: {{ product.category }}</p>
+            
+            <div class="actions">
+                <a href="/products/{{ product.id }}/edit" class="btn btn-warning">Редактировать</a>
+                <form action="/products/{{ product.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

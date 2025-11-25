@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title }} - Список задач</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <div class="task-detail">
+            <h1>{{ task.title }}</h1>
+            {% if task.description %}
+            <p class="description">{{ task.description }}</p>
+            {% endif %}
+            <p class="priority priority-{{ task.priority }}">Приоритет: {{ task.priority }}</p>
+            <p class="status">{% if task.completed %}✓ Выполнено{% else %}○ В работе{% endif %}</p>
+            
+            <div class="actions">
+                <a href="/tasks/{{ task.id }}/edit" class="btn btn-warning">Редактировать</a>
+                <form action="/tasks/{{ task.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту задачу?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

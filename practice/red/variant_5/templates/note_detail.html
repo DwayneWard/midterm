@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ note.title }} - Заметки</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-secondary">← Назад к списку</a>
+        
+        <div class="note-detail">
+            <h1>{% if note.is_pinned %}📌 {% endif %}{{ note.title }}</h1>
+            <div class="content">{{ note.content|nl2br }}</div>
+            {% if note.tags %}
+            <p class="tags">Теги: {{ note.tags }}</p>
+            {% endif %}
+            <p class="status">{% if note.is_pinned %}✓ Закреплена{% else %}○ Обычная заметка{% endif %}</p>
+            
+            <div class="actions">
+                <a href="/notes/{{ note.id }}/edit" class="btn btn-warning">Редактировать</a>
+                <form action="/notes/{{ note.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту заметку?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
